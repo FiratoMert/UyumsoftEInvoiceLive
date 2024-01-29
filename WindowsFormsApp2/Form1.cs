@@ -31,7 +31,7 @@ namespace WindowsFormsApp2
             //gridControl1.DataSource = eInvoiceIncomingDTOs;
             //gridView1.BestFitColumns();
 
-            var result = client.GetInvoiceInfo("Bomaksan_WebServis", "C8AyWmHA", "e6e4a706-cc0d-406a-acc4-97bb165cd36a");
+            var result = client.GetInvoiceLineInfo("Bomaksan_WebServis", "C8AyWmHA", "3B078398-14A4-4691-8E43-4B2B4F946E31");
         }
     }
 }

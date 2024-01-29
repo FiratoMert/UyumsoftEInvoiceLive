@@ -8,7 +8,7 @@ namespace UyumsoftEInvoiceLive
 {
     public class EInvoiceIncomingDTO
     {
-        public string CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public string InvoiceNo { get; set; }
         public string InvoiceDate { get; set; }
         public string UUID { get; set; }
