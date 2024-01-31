@@ -21,5 +21,7 @@ namespace UyumsoftEInvoiceLive
         public string TaxExlusiveValue { get; set; }
         public string Tax { get; set; }
         public string Status { get; set; }
+        public string ErpStatus { get; set; }
+
     }
 }

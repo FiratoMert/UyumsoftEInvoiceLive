@@ -1,0 +1,1710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://efatura.uyumsoft.com.tr/Services/BasicDespatchIntegration?xsd=xsd1" namespace="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" />
+  <xs:import schemaLocation="http://efatura.uyumsoft.com.tr/Services/BasicDespatchIntegration?xsd=xsd9" namespace="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2" />
+  <xs:element name="GetSystemDate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UserInformation">
+    <xs:attribute name="Username" type="xs:string" />
+    <xs:attribute name="Password" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="GetSystemDateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetSystemDateResult" type="tns:DateResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DateResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:attribute name="Value" type="xs:dateTime" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Response">
+    <xs:attribute name="IsSucceded" type="xs:boolean" use="required" />
+    <xs:attribute name="Message" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="GetSystemDateWithFormat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="format" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSystemDateWithFormatResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetSystemDateWithFormatResult" type="tns:StringResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="StringResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:attribute name="Value" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GenerateDocumentUrl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="documentAccessInfo" type="tns:DocumentAccessInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DocumentAccessInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DocumentType" type="tns:SystemDocumentType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DocumentId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AllowedFileTypes" type="tns:DocumentAccessFileType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FileType" type="tns:DocumentAccessFileType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SystemDocumentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OutboxInvoice" />
+      <xs:enumeration value="Voucher" />
+      <xs:enumeration value="ProducerReceipt" />
+      <xs:enumeration value="InboxInvoice" />
+      <xs:enumeration value="OutboxDespatch" />
+      <xs:enumeration value="InboxDespatch" />
+      <xs:enumeration value="GuestCheck" />
+      <xs:enumeration value="ForeignExchange" />
+      <xs:enumeration value="GibArchive" />
+      <xs:enumeration value="Ticket" />
+      <xs:enumeration value="PassengerList" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DocumentAccessFileType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Xml" />
+      <xs:enumeration value="Pdf" />
+      <xs:enumeration value="Html" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GenerateDocumentUrlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GenerateDocumentUrlResult" type="tns:StringResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestProductInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="request" type="tns:ProductInformationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProductInformationRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityCreateHistory">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ProductTypeEnum" type="tns:ProductType" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Date" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EntityCreateHistory" abstract="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityBaseInt" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EntityBaseInt">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityBase" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EntityBase" />
+  <xs:simpleType name="ProductType">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="eInvoice" />
+          <xs:enumeration value="eArchive" />
+          <xs:enumeration value="eDespatch" />
+          <xs:enumeration value="eMM" />
+          <xs:enumeration value="eSMM" />
+          <xs:enumeration value="gibArchiveInvoice" />
+          <xs:enumeration value="eLedger" />
+          <xs:enumeration value="eForeignExchange" />
+          <xs:enumeration value="eGuestCheck" />
+          <xs:enumeration value="eInsuranceCommission" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="RequestProductInformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RequestProductInformationResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="FlagResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:attribute name="Value" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IsEDespatchUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="vknTckn" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsEDespatchUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="IsEDespatchUserResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEDespatchUsers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="pagination" type="tns:PagedQueryContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PagedQueryContext">
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:element name="GetEDespatchUsersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetEDespatchUsersResult" type="tns:SystemUsersResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SystemUsersResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfSystemUser" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfSystemUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:SystemUser" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="SystemUser">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityUpdatedHistory">
+        <xs:attribute name="Identifier" type="xs:string" />
+        <xs:attribute name="PostboxAlias" type="xs:string" />
+        <xs:attribute name="SenderboxAlias" type="xs:string" />
+        <xs:attribute name="Title" type="xs:string" />
+        <xs:attribute name="Type" type="xs:string" />
+        <xs:attribute name="SystemCreateDate" type="xs:string" />
+        <xs:attribute name="FirstCreateDate" type="xs:string" />
+        <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EntityUpdatedHistory" abstract="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityCreateHistory" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FilterEDespatchUsers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="context" type="tns:SystemUserFilterContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SystemUserFilterContext">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FilterablePagedQueryContext">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="SystemCreateDateBegin" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SystemCreateDateEnd" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="FirstCreateDateBegin" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="FirstCreateDateEnd" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FilterablePagedQueryContext">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PagedQueryContext">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Filter" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FilterEDespatchUsersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="FilterEDespatchUsersResult" type="tns:SystemUsersResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserAliasses">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="vknTckn" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserAliassesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetUserAliassesResult" type="tns:UserAliassesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UserAliassesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:SystemUserWithAlias" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SystemUserWithAlias">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Definition" type="tns:SystemUserDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiverboxAliases" type="tns:SystemUserAlias" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SenderboxAliases" type="tns:SystemUserAlias" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchReceiverboxAliases" type="tns:SystemUserAlias" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchSenderboxAliases" type="tns:SystemUserAlias" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SystemUserDefinition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityBaseInt">
+        <xs:attribute name="CreateDateUtc" type="xs:dateTime" use="required" />
+        <xs:attribute name="Identifier" type="xs:string" />
+        <xs:attribute name="Title" type="xs:string" />
+        <xs:attribute name="Type" type="xs:string" />
+        <xs:attribute name="SystemCreateDate" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SystemUserAlias">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:EntityBaseInt">
+        <xs:attribute name="Alias" type="xs:string" />
+        <xs:attribute name="Type" type="xs:int" use="required" />
+        <xs:attribute name="SystemCreateDate" type="xs:string" />
+        <xs:attribute name="SystemDeleteDate" type="xs:string" />
+        <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SaveAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatches" type="tns:ArrayOfDespatchInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfDespatchInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchInfo" nillable="true" type="tns:DespatchInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DespatchInfo">
+    <xs:sequence>
+      <xs:element xmlns:q1="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" minOccurs="0" maxOccurs="1" ref="q1:DespatchAdvice" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TargetCustomer" type="tns:CustomerInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Notification" type="tns:NotificationInformation" />
+    </xs:sequence>
+    <xs:attribute name="LocalDocumentId" type="xs:string" />
+    <xs:attribute name="ExtraInformation" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CustomerInfo">
+    <xs:attribute name="VknTckn" type="xs:string" />
+    <xs:attribute name="Alias" type="xs:string" />
+    <xs:attribute name="Title" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="NotificationInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Mailing" type="tns:MailingInformation" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Messaging" type="tns:SmsMessageInformation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MailingInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Subject" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Attachment" type="tns:MailAttachmentInformation" />
+    </xs:sequence>
+    <xs:attribute name="EnableNotification" type="xs:boolean" use="required" />
+    <xs:attribute name="To" type="xs:string" />
+    <xs:attribute name="BodyXsltIdentifier" type="xs:string" />
+    <xs:attribute name="EmailAccountIdentifier" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="MailAttachmentInformation">
+    <xs:attribute name="Xml" type="xs:boolean" use="required" />
+    <xs:attribute name="Pdf" type="xs:boolean" use="required" />
+    <xs:attribute name="Html" type="xs:boolean" use="required" />
+    <xs:attribute name="AdditionalDocuments" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="SmsMessageInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Subject" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="To" type="xs:string" />
+    <xs:attribute name="BodyXsltIdentifier" type="xs:string" />
+    <xs:attribute name="SmsAccountIdentifier" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="SaveAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SaveAsDraftResult" type="tns:DespatchIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchIdentitiesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:DespatchIdentity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchIdentity">
+    <xs:attribute name="Id" type="xs:string" />
+    <xs:attribute name="Number" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="CompressedSaveAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BinaryRequestData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Hash" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Data" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompressedSaveAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSaveAsDraftResult" type="tns:DespatchIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloneDespatches">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchesIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CloneDespatchesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CloneDespatchesResult" type="tns:ClonedDespatchServiceResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ClonedDespatchServiceResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:ClonedDespatchInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ClonedDespatchInfo">
+    <xs:attribute name="SourceDespatchId" type="xs:string" />
+    <xs:attribute name="ClonedDespatchId" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="SendDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SendDraftResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CancelDraftResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDespatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatches" type="tns:ArrayOfDespatchInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDespatchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SendDespatchResult" type="tns:DespatchIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSendDespatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSendDespatchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSendDespatchResult" type="tns:DespatchIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RetrySendDespatches">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RetrySendDespatchesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RetrySendDespatchesResult" type="tns:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:OutboxDespatchListQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OutboxDespatchListQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListQueryModel">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ReceiptAdviceStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ReceiptAdviceEndDate" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+        <xs:attribute name="IsOnlyNewReceiptAdvice" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchListQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PagedQueryContext">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ExecutionStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ExecutionEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ActualDespatchStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ActualDespatchEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Statuses" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchIds" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchNumbers" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SortColumn" nillable="true" type="tns:DespatchListSortingColumn" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SortMode" nillable="true" type="tns:QuerySortMode" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IsArchived" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="DespatchListSortingColumn">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Id" />
+      <xs:enumeration value="CreateDate" />
+      <xs:enumeration value="ActualDespatchDate" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="QuerySortMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Ascending" />
+      <xs:enumeration value="Descending" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GetOutboxDespatchListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchListResult" type="tns:OutboxDespatchListResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OutboxDespatchListResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfOutboxDespatchListItem" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfOutboxDespatchListItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:OutboxDespatchListItem" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="OutboxDespatchListItem">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListItemBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="LocalDocumentId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ExtraInformation" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ReceiptAdviceDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IsNewReceiptAdvice" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Lines" type="tns:OutboxDespatchListItemLine" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchListItemBase">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ActualDespatchDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeIdentifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchNumber" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreateDateUtc" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IssueDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusEnum" type="tns:DespatchStatus" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusCode" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TypeEnum" type="tns:DespatchTypeEnum" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Type" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ProfileType" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ProfileTypeEnum" type="tns:DespatchProfileType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LineNumber" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TargetTitle" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TargetTcknVkn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TargetAlias" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsArchived" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsAgentNew" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsImported" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Hash" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AdditionalDocumentCount" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Message" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="EnvelopeStatusCode" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DespatchStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Deleted" />
+      <xs:enumeration value="Draft" />
+      <xs:enumeration value="Canceled" />
+      <xs:enumeration value="Queued" />
+      <xs:enumeration value="Processing" />
+      <xs:enumeration value="SentToGib" />
+      <xs:enumeration value="Approved" />
+      <xs:enumeration value="PartialApproved" />
+      <xs:enumeration value="WaitingForApprovement" />
+      <xs:enumeration value="Error" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DespatchTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sending" />
+      <xs:enumeration value="Print" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DespatchProfileType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Base" />
+      <xs:enumeration value="HksDespatch" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OutboxDespatchListItemLine">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListItemLineBase" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchListItemLineBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Status" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchLineId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UnitCode" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DeliveredQuantity" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ItemName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SellerItemIdentification" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OrderLineReferenceId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Price" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LineExtensionAmount" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TimingComplaint" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ReceivedQuantity" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RejectedQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RejectReason" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RejectReasonCode" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ShortQuantity" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OversupplyQuantity" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OutstandingQuantity" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchResult" type="tns:DespatchResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:DespatchInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatches">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:OutboxDespatchQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OutboxDespatchQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchQueryModel">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ReceiptAdviceStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ReceiptAdviceEndDate" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+        <xs:attribute name="IsOnlyNewReceiptAdviceTaken" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PagedQueryContext">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ExecutionStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ExecutionEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ActualDespatchStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ActualDespatchEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateStartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateEndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Statuses" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchIds" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchNumbers" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatchesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchesResult" type="tns:DespatchesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfDespatchInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfDespatchInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:DespatchInfo" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatchesData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:OutboxDespatchQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchesDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchesDataResult" type="tns:DespatchesDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchesDataResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfDespatchData" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfDespatchData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:DespatchData" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DespatchData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Data" type="xs:base64Binary" />
+    </xs:sequence>
+    <xs:attribute name="LocalDocumentId" type="xs:string" />
+    <xs:attribute name="ExtraInformation" type="xs:string" />
+    <xs:attribute name="DespatchId" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatchStatusWithLogs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchStatusWithLogsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchStatusWithLogsResult" type="tns:DespatchStatusWithLogResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchStatusWithLogResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:DespatchStatusWithLogInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchStatusWithLogInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalDocumentId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Message" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusCode" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusEnum" type="tns:DespatchStatus" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Logs" type="tns:DespatchLogItem" />
+    </xs:sequence>
+    <xs:attribute name="EnvelopeStatusCode" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DespatchLogItem">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LogRecordItem" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LogRecordItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Creator" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreateDateUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RemoteIpAddress" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalIpAddress" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MachineName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Type" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QueryOutboxDespatchStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryOutboxDespatchStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="QueryOutboxDespatchStatusResult" type="tns:DespatchStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchStatusResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:DespatchStatusInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DespatchStatusInfo">
+    <xs:attribute name="DespatchId" type="xs:string" />
+    <xs:attribute name="Message" type="xs:string" />
+    <xs:attribute name="StatusCode" type="xs:int" use="required" />
+    <xs:attribute name="StatusEnum" type="tns:DespatchStatus" use="required" />
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchViewResult" type="tns:DespatchViewResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DespatchViewResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:ViewResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ViewResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Html" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Verification" type="tns:VerificationResult" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsUsingDefaultXslt" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerificationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Data" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SigningDate" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+    <xs:attribute name="IsVerified" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:element name="GetOutboxDespatchPdf">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutboxDespatchPdfResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetOutboxDespatchPdfResult" type="tns:DespatchesDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReceiptAdviceView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdviceViewContext" type="tns:ReceiptAdviceViewContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ReceiptAdviceViewContext">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ReceiptAdviceId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsInboxDespatch" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UseDefaultXslt" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IfExceptionUseDefaultXslt" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetReceiptAdviceViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetReceiptAdviceViewResult" type="tns:DespatchViewResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReceiptAdvicePdf">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdviceViewContext" type="tns:ReceiptAdviceViewContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReceiptAdvicePdfResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetReceiptAdvicePdfResult" type="tns:PdfDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PdfDataResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PdfData" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PdfData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Data" type="xs:base64Binary" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsDefaultXsltUsed" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetDespatchReceiptAdvicesTaken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDespatchReceiptAdvicesTakenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SetDespatchReceiptAdvicesTakenResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchResult" type="tns:DespatchResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatches">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxDespatchQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxDespatchQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchQueryModel">
+        <xs:attribute name="SetTaken" type="xs:boolean" use="required" />
+        <xs:attribute name="OnlyNewestDespatches" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetInboxDespatchesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchesResult" type="tns:DespatchesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxDespatchListQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxDespatchListQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListQueryModel">
+        <xs:attribute name="OnlyNewestDespatches" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetInboxDespatchListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchListResult" type="tns:InboxDespatchListResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxDespatchListResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfInboxDespatchListItem" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfInboxDespatchListItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:InboxDespatchListItem" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="InboxDespatchListItem">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListItemBase">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="IsNew" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IsSeen" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IsVerified" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SigningDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VerificationResult" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Lines" type="tns:InboxDespatchListItemLine" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InboxDespatchListItemLine">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DespatchListItemLineBase" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetInboxDespatchesData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxDespatchQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchesDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchesDataResult" type="tns:DespatchesDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchStatusWithLogs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchStatusWithLogsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchStatusWithLogsResult" type="tns:DespatchStatusWithLogResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryInboxDespatchStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryInboxDespatchStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="QueryInboxDespatchStatusResult" type="tns:DespatchStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDespatchesTaken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDespatchesTakenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SetDespatchesTakenResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendReceiptAdvice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdvices" type="tns:ArrayOfReceiptAdviceInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfReceiptAdviceInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiptAdviceInfo" nillable="true" type="tns:ReceiptAdviceInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceiptAdviceInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ReceiptAdviceNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalDocumentId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="InboxDespatchId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Note" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DeliveryContactName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchContactName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ActualDeliveryDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiptAdviceLineInfos" type="tns:ReceiptAdviceLineInfo" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IssueDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceiptAdviceLineInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LineId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TimingComplaint" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ReceivedQuantity" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RejectedQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RejectReason" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RejectReasonCode" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ShortQuantity" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OversupplyQuantity" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendReceiptAdviceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SendReceiptAdviceResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSendReceiptAdvice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSendReceiptAdviceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSendReceiptAdviceResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveReceiptAdviceAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdvices" type="tns:ArrayOfReceiptAdviceInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveReceiptAdviceAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SaveReceiptAdviceAsDraftResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSaveReceiptAdviceAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSaveReceiptAdviceAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSaveReceiptAdviceAsDraftResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendReceiptAdviceUbl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdvices" type="tns:ArrayOfReceiptAdviceTypeInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfReceiptAdviceTypeInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiptAdviceTypeInfo" nillable="true" type="tns:ReceiptAdviceTypeInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceiptAdviceTypeInfo">
+    <xs:sequence>
+      <xs:element xmlns:q2="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2" minOccurs="0" maxOccurs="1" ref="q2:ReceiptAdvice" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TargetCustomer" type="tns:CustomerInfo" />
+    </xs:sequence>
+    <xs:attribute name="LocalDocumentId" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="SendReceiptAdviceUblResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SendReceiptAdviceUblResult" type="tns:ReceiptAdviceIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ReceiptAdviceIdentitiesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiptAdviceIdentity" type="tns:ReceiptAdviceIdentity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ReceiptAdviceIdentity">
+    <xs:attribute name="ReceiptAdviceNumber" type="xs:string" />
+    <xs:attribute name="DocumentId" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="CompressedSendReceiptAdviceUbl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSendReceiptAdviceUblResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSendReceiptAdviceUblResult" type="tns:ReceiptAdviceIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveReceiptAdviceUblAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdvices" type="tns:ArrayOfReceiptAdviceTypeInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveReceiptAdviceUblAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SaveReceiptAdviceUblAsDraftResult" type="tns:ReceiptAdviceIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSaveReceiptAdviceUblAsDraft">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:BinaryRequestData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompressedSaveReceiptAdviceUblAsDraftResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CompressedSaveReceiptAdviceUblAsDraftResult" type="tns:ReceiptAdviceIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryReceiptAdviceStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryReceiptAdviceStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="QueryReceiptAdviceStatusResult" type="tns:ReceiptAdviceStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ReceiptAdviceStatusResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:ReceiptAdviceStatusInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ReceiptAdviceStatusInfo">
+    <xs:attribute name="Status" type="tns:ReceiptAdviceStatus" use="required" />
+    <xs:attribute name="StatusCode" type="xs:int" use="required" />
+    <xs:attribute name="DespatchId" type="xs:string" />
+    <xs:attribute name="Message" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="ReceiptAdviceStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Draft" />
+      <xs:enumeration value="Queued" />
+      <xs:enumeration value="Processing" />
+      <xs:enumeration value="SentToGib" />
+      <xs:enumeration value="Success" />
+      <xs:enumeration value="Error" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GetInboxDespatchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchViewResult" type="tns:DespatchViewResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchPdf">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxDespatchPdfResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxDespatchPdfResult" type="tns:DespatchesDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeDespatchArchiveStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchesId" type="tns:ArrayOfString" />
+        <xs:element minOccurs="1" maxOccurs="1" name="isInbox" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="isArchived" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeDespatchArchiveStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ChangeDespatchArchiveStatusResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxReceiptAdvicesList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxReceiptAdviceListQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxReceiptAdviceListQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PagedQueryContext">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="IssueDateStart" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IssueDateEnd" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateDateStart" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CreateDateEnd" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentIds" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchDocumentIds" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DespatchNumbers" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ReceiptAdviceNumbers" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="OnlyNewestReceiptAdvices" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetInboxReceiptAdvicesListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxReceiptAdvicesListResult" type="tns:InboxReceiptAdviceListResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxReceiptAdviceListResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfInboxReceiptAdviceListItem" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfInboxReceiptAdviceListItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:InboxReceiptAdviceListItem" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="InboxReceiptAdviceListItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DocumentId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeIdentifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchDocumentId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DespatchNumber" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IssueDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreateDateUtc" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsNew" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsSeen" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ReceiptAdviceNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetReceiptAdvicesTaken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="receiptAdviceDocumentIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetReceiptAdvicesTakenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SetReceiptAdvicesTakenResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxReceiptAdvices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxReceiptAdviceQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxReceiptAdviceQueryModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:InboxReceiptAdviceListQueryModel">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="SetTaken" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetInboxReceiptAdvicesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxReceiptAdvicesResult" type="tns:InboxReceiptAdvicesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxReceiptAdvicesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfInboxReceiptAdviceInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfInboxReceiptAdviceInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:InboxReceiptAdviceInfo" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="InboxReceiptAdviceInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:InboxReceiptAdviceListItem" />
+      <xs:element xmlns:q3="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2" minOccurs="0" maxOccurs="1" name="ReceiptAdvice" type="q3:ReceiptAdviceType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetInboxReceiptAdvicesData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="query" type="tns:InboxReceiptAdviceQueryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInboxReceiptAdvicesDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetInboxReceiptAdvicesDataResult" type="tns:InboxReceiptAdviceDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InboxReceiptAdviceDataResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PagedResponseOfInboxReceiptAdviceDataInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PagedResponseOfInboxReceiptAdviceDataInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Items" type="tns:InboxReceiptAdviceDataInfo" />
+    </xs:sequence>
+    <xs:attribute name="PageIndex" type="xs:int" use="required" />
+    <xs:attribute name="PageSize" type="xs:int" use="required" />
+    <xs:attribute name="TotalCount" type="xs:int" use="required" />
+    <xs:attribute name="TotalPages" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="InboxReceiptAdviceDataInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:InboxReceiptAdviceListItem" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Data" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MoveToDraftStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MoveToDraftStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="MoveToDraftStatusResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransformAndSend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="requests" type="tns:ArrayOfUblTransformationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfUblTransformationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UblTransformationRequest" nillable="true" type="tns:UblTransformationRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UblTransformationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Transformator" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalIdentifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SourceData" type="xs:base64Binary" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SaveAsDraft" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransformAndSendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="TransformAndSendResult" type="tns:DespatchIdentitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferInboxDespatchToAnotherBranch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="targetBranchAlias" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferInboxDespatchToAnotherBranchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="TransferInboxDespatchToAnotherBranchResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferOutboxDespatchToAnotherBranch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="despatchIds" type="tns:ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="targetBranchAlias" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferOutboxDespatchToAnotherBranchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="TransferOutboxDespatchToAnotherBranchResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateDespath">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInformation" />
+        <xs:element xmlns:q4="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" minOccurs="0" maxOccurs="1" name="despatch" type="q4:DespatchAdviceType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateDespathResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ValidateDespathResult" type="tns:FlagResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

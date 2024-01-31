@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" elementFormDefault="qualified" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://efatura.uyumsoft.com.tr/Services/BasicDespatchIntegration?xsd=xsd2" namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" />
+  <xs:import schemaLocation="http://efatura.uyumsoft.com.tr/Services/BasicDespatchIntegration?xsd=xsd4" namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" />
+  <xs:import schemaLocation="http://efatura.uyumsoft.com.tr/Services/BasicDespatchIntegration?xsd=xsd8" namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" />
+  <xs:element name="DespatchAdvice" type="tns:DespatchAdviceType" />
+  <xs:complexType name="DespatchAdviceType">
+    <xs:sequence>
+      <xs:element xmlns:q1="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" minOccurs="0" maxOccurs="1" ref="q1:UBLExtensions" />
+      <xs:element xmlns:q2="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q2:UBLVersionID" />
+      <xs:element xmlns:q3="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q3:CustomizationID" />
+      <xs:element xmlns:q4="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q4:ProfileID" />
+      <xs:element xmlns:q5="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q5:ID" />
+      <xs:element xmlns:q6="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q6:CopyIndicator" />
+      <xs:element xmlns:q7="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q7:UUID" />
+      <xs:element xmlns:q8="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q8:IssueDate" />
+      <xs:element xmlns:q9="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q9:IssueTime" />
+      <xs:element xmlns:q10="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q10:DespatchAdviceTypeCode" />
+      <xs:element xmlns:q11="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="unbounded" ref="q11:Note" />
+      <xs:element xmlns:q12="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" minOccurs="0" maxOccurs="1" ref="q12:LineCountNumeric" />
+      <xs:element xmlns:q13="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="unbounded" ref="q13:OrderReference" />
+      <xs:element xmlns:q14="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="unbounded" ref="q14:AdditionalDocumentReference" />
+      <xs:element xmlns:q15="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="unbounded" ref="q15:Signature" />
+      <xs:element xmlns:q16="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q16:DespatchSupplierParty" />
+      <xs:element xmlns:q17="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q17:DeliveryCustomerParty" />
+      <xs:element xmlns:q18="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q18:BuyerCustomerParty" />
+      <xs:element xmlns:q19="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q19:SellerSupplierParty" />
+      <xs:element xmlns:q20="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q20:OriginatorCustomerParty" />
+      <xs:element xmlns:q21="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="1" ref="q21:Shipment" />
+      <xs:element xmlns:q22="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" minOccurs="0" maxOccurs="unbounded" ref="q22:DespatchLine" />
+    </xs:sequence>
+    <xs:attribute name="schemaLocation" type="xs:string" />
+  </xs:complexType>
+</xs:schema>

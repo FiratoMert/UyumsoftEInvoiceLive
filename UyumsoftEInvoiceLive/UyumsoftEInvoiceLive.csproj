@@ -46,11 +46,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Connected Services\Despatch\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\Uyumsoft\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="EDespatchIncomingDTO.cs" />
     <Compile Include="EinvoiceDetailDTO.cs" />
     <Compile Include="EInvoiceIncomingDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +66,103 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration.wsdl" />
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\BasicDespatchIntegration9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.ClonedDespatchServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchesDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchIdentitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchStatusWithLogResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.DespatchViewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.FlagResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.InboxDespatchListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.InboxReceiptAdviceDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.InboxReceiptAdviceListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.InboxReceiptAdvicesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.OutboxDespatchListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.PdfDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.ReceiptAdviceIdentitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.ReceiptAdviceStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.StringResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.SystemUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Despatch\UyumsoftEInvoiceLive.Despatch.UserAliassesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Uyumsoft\BasicIntegration.wsdl" />
     <None Include="Connected Services\Uyumsoft\BasicIntegration.xsd">
       <SubType>Designer</SubType>
@@ -162,6 +265,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Despatch\" />
     <WCFMetadataStorage Include="Connected Services\Uyumsoft\" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +276,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\Uyumsoft\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Despatch\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Despatch\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Despatch\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
