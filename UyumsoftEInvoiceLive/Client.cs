@@ -174,6 +174,33 @@ namespace UyumsoftEInvoiceLive
             }
         }
 
+        public bool AcceptInvoice(string username, string password, string UUID)
+        {
+            try
+            {
+                userInformation.Username = username;
+                userInformation.Password = password;
+
+
+                DocumentResponseInfo[] documentResponseInfos = new DocumentResponseInfo[1];
+                DocumentResponseInfo documentResponseInfo = new DocumentResponseInfo();
+                documentResponseInfo.InvoiceId = UUID;
+                documentResponseInfo.ResponseStatus = DocumentResponseStatus.Approved;
+
+                documentResponseInfos[0] = documentResponseInfo;
+
+                Uyumsoft.FlagResponse flagResponse = basicIntegrationClient.SendDocumentResponse(userInformation, documentResponseInfos);
+
+                return flagResponse.Value;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public List<EinvoiceDetailDTO> GetInvoiceLineInfo(string username, string password, string UUID)
         {
             try
@@ -255,7 +282,7 @@ namespace UyumsoftEInvoiceLive
             return eDespatchIncomingDTOs;
         }
 
-        public DespatchesDataResponse GetInboxDespatchPdf(string username, string password, string UUID)
+        public DespatchData GetInboxDespatchPdf(string username, string password, string UUID)
         {
             try
             {
@@ -264,8 +291,10 @@ namespace UyumsoftEInvoiceLive
 
 
                 var result = basicDespatchIntegrationClient.GetInboxDespatchPdf(despatchUserInformation, UUID);
+                PagedResponseOfDespatchData pagedResponseOfDespatchData = result.Value;
+                DespatchData despatchData = pagedResponseOfDespatchData.Items[0];
 
-                return result;
+                return despatchData;
             }
             catch (Exception)
             {
