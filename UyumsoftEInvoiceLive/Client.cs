@@ -56,9 +56,10 @@ namespace UyumsoftEInvoiceLive
                         eInvoiceIncomingDTO.ProfileId = item.Type.ToString();
                         eInvoiceIncomingDTO.InvoiceType = item.InvoiceTipType.ToString();
                         eInvoiceIncomingDTO.Currency = item.DocumentCurrencyCode.ToString();
-                        eInvoiceIncomingDTO.TaxInclusiveValue = item.PayableAmount.ToString("N2");
-                        eInvoiceIncomingDTO.TaxExlusiveValue = item.TaxExclusiveAmount.ToString("N2");
+                        eInvoiceIncomingDTO.TaxInclusiveValue = item.PayableAmount.ToString("N4");
+                        eInvoiceIncomingDTO.TaxExlusiveValue = item.TaxExclusiveAmount.ToString("N4");
                         eInvoiceIncomingDTO.Tax = item.TaxTotal.ToString();
+                        eInvoiceIncomingDTO.ExchangeRate = item.ExchangeRate.ToString("N4");
 
                         switch (item.Status.ToString())
                         {
@@ -156,6 +157,24 @@ namespace UyumsoftEInvoiceLive
 
         }
 
+        public InvoiceDataResponse GetInboxInvoiceData(string username , string password , string UUID)
+        {
+            try
+            {
+                userInformation.Username = username;
+                userInformation.Password = password;
+
+                var result = basicIntegrationClient.GetInboxInvoiceData(userInformation, UUID);
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
         public InvoiceInfo GetInvoiceInfo(string username, string password, string UUID)
         {
             try
@@ -186,6 +205,33 @@ namespace UyumsoftEInvoiceLive
                 DocumentResponseInfo documentResponseInfo = new DocumentResponseInfo();
                 documentResponseInfo.InvoiceId = UUID;
                 documentResponseInfo.ResponseStatus = DocumentResponseStatus.Approved;
+
+                documentResponseInfos[0] = documentResponseInfo;
+
+                Uyumsoft.FlagResponse flagResponse = basicIntegrationClient.SendDocumentResponse(userInformation, documentResponseInfos);
+
+                return flagResponse.Value;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public bool RejectInvoice(string username, string password, string UUID)
+        {
+            try
+            {
+                userInformation.Username = username;
+                userInformation.Password = password;
+
+
+                DocumentResponseInfo[] documentResponseInfos = new DocumentResponseInfo[1];
+                DocumentResponseInfo documentResponseInfo = new DocumentResponseInfo();
+                documentResponseInfo.InvoiceId = UUID;
+                documentResponseInfo.ResponseStatus = DocumentResponseStatus.Declined;
 
                 documentResponseInfos[0] = documentResponseInfo;
 
@@ -301,6 +347,192 @@ namespace UyumsoftEInvoiceLive
 
                 throw;
             }
+        }
+
+        public string SendInvoice(string username, string password, SendEInvoiceDTO sendEInvoiceDTO)
+        {
+            userInformation.Username = username;
+            userInformation.Password = password;
+
+            InvoiceType invoiceType = new InvoiceType();
+
+            #region Fatura Bilgileri
+            invoiceType.ID = new Uyumsoft.IDType() { Value = sendEInvoiceDTO.InvoiceID };
+            invoiceType.ProfileID = new Uyumsoft.ProfileIDType() { Value = sendEInvoiceDTO.ProfileID };
+            invoiceType.CopyIndicator = new Uyumsoft.CopyIndicatorType() { Value = sendEInvoiceDTO.CopyIndicator };
+            invoiceType.IssueDate = new Uyumsoft.IssueDateType() { Value = sendEInvoiceDTO.IssueDate };
+            invoiceType.IssueTime = new Uyumsoft.IssueTimeType() { Value = sendEInvoiceDTO.IssueTime };
+            invoiceType.InvoiceTypeCode = new Uyumsoft.InvoiceTypeCodeType() { Value = sendEInvoiceDTO.InvoiceTypeCode };
+            invoiceType.Note = new Uyumsoft.NoteType[] { new Uyumsoft.NoteType() { Value = sendEInvoiceDTO.InvoiceNote } };
+            invoiceType.DocumentCurrencyCode = new Uyumsoft.DocumentCurrencyCodeType() { Value = sendEInvoiceDTO.DocumentCurrencyCode };
+            invoiceType.LineCountNumeric = new Uyumsoft.LineCountNumericType() { Value = sendEInvoiceDTO.LineCountNumeric };
+            #endregion
+
+            #region Fatura Gönderen Firma Bilgileri
+            Uyumsoft.PartyType partyType = new Uyumsoft.PartyType()
+            {
+                PartyIdentification = new Uyumsoft.PartyIdentificationType[] {
+                    new Uyumsoft.PartyIdentificationType() { ID = new Uyumsoft.IDType() { schemeID = sendEInvoiceDTO.SenderCompanyPartyIdentificationschemeID, Value = sendEInvoiceDTO.SenderCompanyPartyIdentificationVKNTCKNNo } },//GÖNDEREN FİRMA VERGİ KİMLİK NO YA DA TCKN TC KİMLİK NO 
+                    new Uyumsoft.PartyIdentificationType() { ID = new Uyumsoft.IDType(){ schemeID = "MERSISNO", Value = sendEInvoiceDTO.SenderCompanyPartyIdentificationMersisNo } },
+                    new Uyumsoft.PartyIdentificationType() { ID = new Uyumsoft.IDType() { schemeID = "TICARETSICILNO", Value = sendEInvoiceDTO.SenderCompanyPartyIdentificationTicaretSicilNo } },
+                },
+                PartyName = new Uyumsoft.PartyNameType() { Name = new Uyumsoft.NameType1 { Value = sendEInvoiceDTO.SenderCompanyPartyName } },
+                PostalAddress = new Uyumsoft.AddressType()
+                {
+                    StreetName = new Uyumsoft.StreetNameType() { Value = sendEInvoiceDTO.SenderCompanyPostalAddressStreetName },
+                    CitySubdivisionName = new Uyumsoft.CitySubdivisionNameType() { Value = sendEInvoiceDTO.SenderCompanyPostalAddressCitySubdivisionName },
+                    CityName = new Uyumsoft.CityNameType() { Value = sendEInvoiceDTO.SenderCompanyPostalAddressCityName },
+                    Country = new Uyumsoft.CountryType() { Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.SenderCompanyPostalAddressCountryName } }
+                },
+                PartyTaxScheme = new Uyumsoft.PartyTaxSchemeType() { TaxScheme = new Uyumsoft.TaxSchemeType() { Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.SenderCompanyTaxSchemeName } } },
+                Person = new Uyumsoft.PersonType() { FirstName = new Uyumsoft.FirstNameType() { Value = sendEInvoiceDTO.SenderCompanyPersonFirstName }, FamilyName = new Uyumsoft.FamilyNameType() { Value = sendEInvoiceDTO.SenderCompanyPersonFamilyName } }
+            };
+
+            invoiceType.AccountingSupplierParty = new Uyumsoft.SupplierPartyType() { Party = partyType };
+
+            #endregion
+
+            #region Fatura Alıcı Firma Bilgileri 
+            Uyumsoft.CustomerPartyType customerParty = new Uyumsoft.CustomerPartyType()
+            {
+                Party = new Uyumsoft.PartyType()
+                {
+                    PartyIdentification = new Uyumsoft.PartyIdentificationType[] { new Uyumsoft.PartyIdentificationType() { ID = new Uyumsoft.IDType() { schemeID = sendEInvoiceDTO.CustomerCompanySchemeID, Value = sendEInvoiceDTO.CustomerCompanyVKNTCKNNo } } }, //FATURA ALICI VKN VERGİ KİMLİK NO YA DA TCKN TC KİMLİK NO 
+                    Person = new Uyumsoft.PersonType() { FirstName = new Uyumsoft.FirstNameType() { Value = sendEInvoiceDTO.CustomerCompanyPersonName }, FamilyName = new Uyumsoft.FamilyNameType() { Value = sendEInvoiceDTO.CustomerCompanyPersonFamilyName } }, //ALICI ADI SOYADI
+                    PostalAddress = new Uyumsoft.AddressType() //FATURA ALICI ADRES BİLGİLERİ 
+                    {
+                        Room = new Uyumsoft.RoomType() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressRoom },
+                        StreetName = new Uyumsoft.StreetNameType() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressStreetName }, // ALICI ADRESİ 
+                        BuildingNumber = new Uyumsoft.BuildingNumberType() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressBuildingNumber }, // ALICI BİNA NO 
+                        CitySubdivisionName = new Uyumsoft.CitySubdivisionNameType() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressCitySubdivisionName },//ALICI ADRES İLÇE
+                        CityName = new Uyumsoft.CityNameType() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressCityName },
+                        Country = new Uyumsoft.CountryType() { Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.CustomerCompanyPostalAddressCountryName } }
+                    },
+                    PartyTaxScheme = new Uyumsoft.PartyTaxSchemeType() { TaxScheme = new Uyumsoft.TaxSchemeType() { Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.CustomerCompanyTaxSchemeName } } },
+                    Contact = new Uyumsoft.ContactType() { Telephone = new Uyumsoft.TelephoneType() { Value = sendEInvoiceDTO.CustomerCompanyTelephoneNumber } } //ALICI TELEFONU
+                }
+            };
+            invoiceType.AccountingCustomerParty = customerParty;
+
+            #endregion
+
+            #region Taksit Bilgileri
+            invoiceType.TaxTotal = new Uyumsoft.TaxTotalType[] {
+                new Uyumsoft.TaxTotalType(){
+                    TaxAmount = new Uyumsoft.TaxAmountType(){ currencyID = sendEInvoiceDTO.TaxTotalTaxAmountCurrencyID, Value = sendEInvoiceDTO.TaxTotalTaxAmountValue },
+                    TaxSubtotal = new Uyumsoft.TaxSubtotalType[]{
+                        new Uyumsoft.TaxSubtotalType(){
+                            TaxableAmount = new Uyumsoft.TaxableAmountType() { currencyID = sendEInvoiceDTO.TaxSubTotalTaxableAmountCurrencyId,Value= sendEInvoiceDTO.TaxSubTotalTaxableAmountValue },
+                            TaxAmount = new Uyumsoft.TaxAmountType() { currencyID = sendEInvoiceDTO.TaxSubTotalTaxAmountCurrencyId , Value=sendEInvoiceDTO.TaxSubTotalTaxAmountValue},
+                            Percent = new Uyumsoft.PercentType1() { Value = sendEInvoiceDTO.TaxSubTotalPercentValue},
+                            TaxCategory = new Uyumsoft.TaxCategoryType() {
+                                TaxScheme = new Uyumsoft.TaxSchemeType() {
+                                    Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.TaxSubtotalTaxCategoryTaxSchemeName} ,
+                                    TaxTypeCode = new Uyumsoft.TaxTypeCodeType() { Value = sendEInvoiceDTO.TaxSubtotalTaxCategoryTaxSchemeTaxTypeCode }
+                                }
+                            }
+                        }
+                    }
+                },
+
+            };
+            #endregion
+
+            #region Faturanın genel ücret bilgileri
+            invoiceType.LegalMonetaryTotal = new Uyumsoft.MonetaryTotalType()
+            {
+                LineExtensionAmount = new Uyumsoft.LineExtensionAmountType() { currencyID = sendEInvoiceDTO.LineExtensionAmountcurrencyID, Value = sendEInvoiceDTO.LineExtensionAmountValue }, //Toplam ana tutar
+                TaxExclusiveAmount = new Uyumsoft.TaxExclusiveAmountType() { currencyID = sendEInvoiceDTO.TaxExclusiveAmountCurrencyId, Value = sendEInvoiceDTO.TaxExclusiveAmountValue }, //Vergisiz toplam
+                TaxInclusiveAmount = new Uyumsoft.TaxInclusiveAmountType() { currencyID = sendEInvoiceDTO.TaxInclusiveAmountCurrencyId, Value = sendEInvoiceDTO.TaxInclusiveAmountValue }, //Vergili toplam tutar
+                AllowanceTotalAmount = new Uyumsoft.AllowanceTotalAmountType() { currencyID = sendEInvoiceDTO.AllowanceTotalAmountCurrenyId },
+                PayableAmount = new Uyumsoft.PayableAmountType() { currencyID = sendEInvoiceDTO.PayableAmountCurrencyId, Value = sendEInvoiceDTO.PayableAmountValue } //Ödenecek toplam tutar
+            };
+            #endregion
+
+            #region Faturaya ait ürünlerin bilerileri (Array)
+
+            Uyumsoft.InvoiceLineType[] invoiceLineTypes = new Uyumsoft.InvoiceLineType[sendEInvoiceDTO.InvoiceLine.Length];
+
+            for (int i = 0; i < sendEInvoiceDTO.InvoiceLine.Length; i++)
+            {
+                Uyumsoft.InvoiceLineType invoiceLineType = new Uyumsoft.InvoiceLineType()
+                {
+                    ID = new Uyumsoft.IDType() { Value = (i + 1).ToString() },
+                    Note = new Uyumsoft.NoteType[] { new Uyumsoft.NoteType() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineNote } },
+                    InvoicedQuantity = new Uyumsoft.InvoicedQuantityType() { unitCode = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineInvoicedQuantityUnitCode, Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineInvoicedQuantityValue },
+                    LineExtensionAmount = new Uyumsoft.LineExtensionAmountType() { currencyID = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineLineExtensionAmountCurrencyId, Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineLineExtensionAmountValue },
+                    TaxTotal = new Uyumsoft.TaxTotalType()
+                    {
+                        TaxAmount = new Uyumsoft.TaxAmountType() { currencyID = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxAmountCurrencyId, Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxAmountValue },
+                        TaxSubtotal = new Uyumsoft.TaxSubtotalType[]{
+                new Uyumsoft.TaxSubtotalType(){
+                    TaxableAmount = new Uyumsoft.TaxableAmountType() { currencyID = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxableAmountCurrencyId,Value= sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxableAmountValue },
+                    TaxAmount = new Uyumsoft.TaxAmountType() { currencyID = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxAmountCurrencyId , Value=sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxAmountValue},
+                    Percent = new Uyumsoft.PercentType1() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalPercent},
+                    TaxCategory = new Uyumsoft.TaxCategoryType() {
+                        TaxScheme = new Uyumsoft.TaxSchemeType() {
+                            Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxSchemeName} ,
+                            TaxTypeCode = new Uyumsoft.TaxTypeCodeType() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineTaxSubTotalTaxSchemeTaxTypeCode }
+                            }
+                        }
+                    }
+                }
+                    },
+                    Item = new Uyumsoft.ItemType()
+                    {
+                        Description = new Uyumsoft.DescriptionType() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineItemDescriptionValue },
+                        Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineItemNameValue },
+                        ModelName = new Uyumsoft.ModelNameType() { Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLineItemModelNameValue }
+                    },
+                    Price = new Uyumsoft.PriceType()
+                    {
+                        PriceAmount = new Uyumsoft.PriceAmountType()
+                        {
+                            currencyID = sendEInvoiceDTO.InvoiceLine[i].InvoiceLinePricePriceAmountCurrencyId,
+                            Value = sendEInvoiceDTO.InvoiceLine[i].InvoiceLinePricePriceAmountValue
+                        }
+                    }
+                };
+
+                invoiceLineTypes[i] = invoiceLineType;
+            }
+
+
+            invoiceType.InvoiceLine = invoiceLineTypes;
+
+
+            #endregion
+
+            #region Fatura ile ilgili diğer bilgiler
+            Uyumsoft.InvoiceInfo infos = new Uyumsoft.InvoiceInfo();
+            infos.Invoice = invoiceType;
+            infos.EArchiveInvoiceInfo = new Uyumsoft.EArchiveInvoiceInformation() { DeliveryType = Uyumsoft.InvoiceDeliveryType.Electronic };
+            infos.Scenario = Uyumsoft.InvoiceScenarioChoosen.Automated;
+            infos.Notification = new Uyumsoft.NotificationInformation()
+            {
+                Mailing = new Uyumsoft.MailingInformation[] {
+                    new Uyumsoft.MailingInformation(){
+                        Subject = sendEInvoiceDTO.NotificationMailingSubject,
+                        EnableNotification = sendEInvoiceDTO.NotificationMailingEnableNotification,
+                        To = sendEInvoiceDTO.NotificationMailingTo,
+                        Attachment = new Uyumsoft.MailAttachmentInformation() { Xml=sendEInvoiceDTO.NotificationMailingAttachmentXml, Pdf=sendEInvoiceDTO.NotificationMailingAttachmentPdf}
+                    }
+                }
+            };
+            infos.LocalDocumentId = sendEInvoiceDTO.LocalDocumentId;
+            #endregion
+
+            var request = new Uyumsoft.InvoiceInfo[] { infos };
+
+            Uyumsoft.InvoiceIdentitiesResponse response = new Uyumsoft.InvoiceIdentitiesResponse();
+
+            response = basicIntegrationClient.SendInvoice(userInformation, request);
+
+            if (response.Message == null)
+            {
+                response.Message = "Başarıyla Gönderildi!";
+            }
+            return response.Message;
         }
     }
 }

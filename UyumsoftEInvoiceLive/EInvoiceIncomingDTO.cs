@@ -22,6 +22,7 @@ namespace UyumsoftEInvoiceLive
         public string Tax { get; set; }
         public string Status { get; set; }
         public string ErpStatus { get; set; }
+        public string ExchangeRate { get; set; }
 
     }
 }
