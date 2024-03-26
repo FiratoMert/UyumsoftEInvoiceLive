@@ -34,5 +34,16 @@ namespace UyumsoftEInvoiceLive
         public string InvoiceLineItemModelNameValue { get; set; }
         public string InvoiceLinePricePriceAmountCurrencyId { get; set; }
         public decimal InvoiceLinePricePriceAmountValue { get; set; }
+        public string InvoiceLineItemKeyword {  get; set; }
+        public string InvoiceLineWithHoldingTaxTotalTaxAmountCurrencyID { get; set; }
+        public decimal InvoiceLineWithHoldingTaxTotalTaxAmountCurrencyValue { get; set; }
+        public string InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxableAmountCurrencyID { get; set; }
+        public decimal InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxableAmountValue { get; set; }
+        public string InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxAmountCurrencyID { get; set; }
+        public decimal InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxAmountValue { get; set; }
+        public decimal InvoiceLineWithHoldingTaxTotalTaxSubTotalPercentValue { get; set; }
+        public string InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxCategoryTaxSchemeNameValue { get; set; }
+        public string InvoiceLineWithHoldingTaxTotalTaxSubTotalTaxCategoryTaxSchemeNameTaxTypeCode { get; set; }
+
     }
 }

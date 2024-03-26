@@ -157,7 +157,7 @@ namespace UyumsoftEInvoiceLive
 
         }
 
-        public InvoiceDataResponse GetInboxInvoiceData(string username , string password , string UUID)
+        public InvoiceDataResponse GetInboxInvoiceData(string username, string password, string UUID)
         {
             try
             {
@@ -293,7 +293,7 @@ namespace UyumsoftEInvoiceLive
 
         }
 
-        public List<EDespatchIncomingDTO> GetInboxDespatchList(string username, string password, DateTime Str, DateTime End , int? pageSize = int.MaxValue)
+        public List<EDespatchIncomingDTO> GetInboxDespatchList(string username, string password, DateTime Str, DateTime End, int? pageSize = int.MaxValue)
         {
             despatchUserInformation.Username = username;
             despatchUserInformation.Password = password;
@@ -397,6 +397,7 @@ namespace UyumsoftEInvoiceLive
             {
                 Party = new Uyumsoft.PartyType()
                 {
+                    PartyName = new Uyumsoft.PartyNameType() { Name = new Uyumsoft.NameType1() { Value = sendEInvoiceDTO.CustomerCompanyPartyName } },
                     PartyIdentification = new Uyumsoft.PartyIdentificationType[] { new Uyumsoft.PartyIdentificationType() { ID = new Uyumsoft.IDType() { schemeID = sendEInvoiceDTO.CustomerCompanySchemeID, Value = sendEInvoiceDTO.CustomerCompanyVKNTCKNNo } } }, //FATURA ALICI VKN VERGİ KİMLİK NO YA DA TCKN TC KİMLİK NO 
                     Person = new Uyumsoft.PersonType() { FirstName = new Uyumsoft.FirstNameType() { Value = sendEInvoiceDTO.CustomerCompanyPersonName }, FamilyName = new Uyumsoft.FamilyNameType() { Value = sendEInvoiceDTO.CustomerCompanyPersonFamilyName } }, //ALICI ADI SOYADI
                     PostalAddress = new Uyumsoft.AddressType() //FATURA ALICI ADRES BİLGİLERİ 
@@ -417,7 +418,10 @@ namespace UyumsoftEInvoiceLive
             #endregion
 
             #region Taksit Bilgileri
-            invoiceType.TaxTotal = new Uyumsoft.TaxTotalType[] {
+
+            invoiceType.TaxTotal = sendEInvoiceDTO.TaxTotalTypes;
+
+            /*{
                 new Uyumsoft.TaxTotalType(){
                     TaxAmount = new Uyumsoft.TaxAmountType(){ currencyID = sendEInvoiceDTO.TaxTotalTaxAmountCurrencyID, Value = sendEInvoiceDTO.TaxTotalTaxAmountValue },
                     TaxSubtotal = new Uyumsoft.TaxSubtotalType[]{
@@ -436,6 +440,26 @@ namespace UyumsoftEInvoiceLive
                 },
 
             };
+            */
+
+            #endregion
+
+            #region Tevkifat Bilgileri
+
+
+
+            invoiceType.WithholdingTaxTotal = sendEInvoiceDTO.TaxTotalTypeWithHolding;
+            //    new Uyumsoft.TaxTotalType[]
+            //{
+            //    new Uyumsoft.TaxTotalType
+            //    {
+            //        TaxAmount = new Uyumsoft.TaxAmountType { currencyID = sendEInvoiceDTO.WithHoldingTaxTotalTaxAmountCurrencyID, Value = sendEInvoiceDTO.WithHoldingTaxTotalTaxAmountCurrencyValue },
+            //        TaxSubtotal = sendEInvoiceDTO.TaxSubtotalTypes
+            //    }
+
+
+            //};
+
             #endregion
 
             #region Faturanın genel ücret bilgileri
@@ -447,6 +471,22 @@ namespace UyumsoftEInvoiceLive
                 AllowanceTotalAmount = new Uyumsoft.AllowanceTotalAmountType() { currencyID = sendEInvoiceDTO.AllowanceTotalAmountCurrenyId },
                 PayableAmount = new Uyumsoft.PayableAmountType() { currencyID = sendEInvoiceDTO.PayableAmountCurrencyId, Value = sendEInvoiceDTO.PayableAmountValue } //Ödenecek toplam tutar
             };
+            #endregion
+
+            #region Fatura Döviz Bilgileri
+
+            if (sendEInvoiceDTO.PricingExchangeRateCalculationRate > 1)
+            {
+                invoiceType.PricingExchangeRate = new Uyumsoft.ExchangeRateType()
+                {
+                    SourceCurrencyCode = new Uyumsoft.SourceCurrencyCodeType() { Value = sendEInvoiceDTO.PricingExchangeRateSourceCurrencyCode },
+                    TargetCurrencyCode = new Uyumsoft.TargetCurrencyCodeType() { Value = sendEInvoiceDTO.PricingExchangeRateTargetCurrencyCode },
+                    CalculationRate = new Uyumsoft.CalculationRateType() { Value = (decimal)sendEInvoiceDTO.PricingExchangeRateCalculationRate },
+                    Date = new Uyumsoft.DateType1() { Value = (DateTime)sendEInvoiceDTO.PricingExchangeRateDate }
+
+                };
+            }           
+
             #endregion
 
             #region Faturaya ait ürünlerin bilerileri (Array)

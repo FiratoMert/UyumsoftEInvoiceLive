@@ -82,6 +82,7 @@ namespace UyumsoftEInvoiceLive
         /// Alıcı Firma TCKN ya da VKN numarası 
         /// </summary>
         public string CustomerCompanyVKNTCKNNo { get; set; }
+        public string CustomerCompanyPartyName { get; set; }
         public string CustomerCompanyPersonName { get; set; }
         public string CustomerCompanyPersonFamilyName { get; set; }
         public string CustomerCompanyPostalAddressRoom { get; set; }
@@ -145,6 +146,25 @@ namespace UyumsoftEInvoiceLive
 
         #endregion
 
+        public Uyumsoft.TaxTotalType[] TaxTotalTypes { get; set; }
+        public Uyumsoft.TaxTotalType[] TaxTotalTypeWithHolding { get; set; }
+        public Uyumsoft.TaxSubtotalType[] TaxSubtotalTypes { get; set; }
+
+        #region Tevkifat Bilgileri 
+
+        public string WithHoldingTaxTotalTaxAmountCurrencyID { get; set; }
+        public decimal WithHoldingTaxTotalTaxAmountCurrencyValue { get; set; }
+        //public string WithHoldingTaxTotalTaxSubTotalTaxableAmountCurrencyID { get; set; }
+        //public decimal WithHoldingTaxTotalTaxSubTotalTaxableAmountValue { get; set; }
+        //public string WithHoldingTaxTotalTaxSubTotalTaxAmountCurrencyID { get; set; }
+        //public decimal WithHoldingTaxTotalTaxSubTotalTaxAmountValue { get; set; }
+        //public decimal WithHoldingTaxTotalTaxSubTotalPercentValue { get; set; }
+        //public string WithHoldingTaxTotalTaxSubTotalTaxCategoryTaxSchemeNameValue { get; set; }
+        //public string WithHoldingTaxTotalTaxSubTotalTaxCategoryTaxSchemeNameTaxTypeCode { get; set; }
+
+        #endregion
+
+
         public Uyumsoft.InvoiceDeliveryType EArchiveInvoiceInfoDeliveryType { get; set; }
         public Uyumsoft.InvoiceScenarioChoosen Scenario { get; set; }
         public string NotificationMailingSubject { get; set; }
@@ -152,8 +172,11 @@ namespace UyumsoftEInvoiceLive
         public string NotificationMailingTo { get; set; }
         public bool NotificationMailingAttachmentXml { get; set; }
         public bool NotificationMailingAttachmentPdf { get; set; }
-
         public string LocalDocumentId { get; set; }
+        public string PricingExchangeRateSourceCurrencyCode { get; set; }
+        public string PricingExchangeRateTargetCurrencyCode { get; set; }
+        public decimal? PricingExchangeRateCalculationRate { get; set; }
+        public DateTime? PricingExchangeRateDate { get; set; }
 
     }
 }
