@@ -32,6 +32,7 @@ namespace UyumsoftEInvoiceLive
                 inboxInvoiceListQueryModel.PageSize = (int)pageSize;
                 inboxInvoiceListQueryModel.CreateEndDate = endDate;
                 inboxInvoiceListQueryModel.CreateStartDate = startDate;
+                inboxInvoiceListQueryModel.OnlyNewestInvoices = false;
 
                 inboxInvoiceListResponse = basicIntegrationClient.GetInboxInvoiceList(userInformation, inboxInvoiceListQueryModel);
 
